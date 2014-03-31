@@ -30,12 +30,22 @@ window.alter("成功");
 //第二个参数指定url，对那个页面发送ajax请求（本质任然http请求）
 //第三个参数true表示使用异步机制;false表示同步机制
 
-var url="/ajax/register.php?username="+$("username").value;
+var url="/ajax/register.php?+mytime"+new Date()+"&username="+$("username").value;
+//var url="register.php";
+//var data="username"+$('username').value;
+
+
 //打开请求
 myXmlHttpRequest.open("get",url,true);
-//指定回调函数,chuli是一个函数名
-myXmlHttpRequest.onreadystatechage=chuli；
+//myXmlHttpRequest.open("post",url,true);
+//
+// myXmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 
+//指定回调函数,chuli是一个函数名
+imyXmlHttpRequest.onreadystatechage=chuli；
+//真的发送请求，如果是get请求则填入null;
+//如果是post请求则填入实际的数据
+myXmlHttpRequest.send(null);
 
 
 
@@ -50,11 +60,25 @@ function $(id){
 
 return document.getElementById(id);
 }
+//回调函数
+function chuli(){
 
+window.alter("回调函数");
+//处理从php返回的数据 看格式
+if(myXmlHttpRequest.readyState==4)
+{
+window.alter(""+myXmlHttpRequest.responseText);
+
+}
+}
 
 
 }
 
+//使用get方式发送请求，如果提交的用户名没变化，浏览器不会发出请求，而是从缓存取数据，url
+//解决方法：
+//1. url后带一个总是变化的东西，如当前时间
+//2. 在服务器回送结果时，禁用缓存；
 
 
 </script>
@@ -62,7 +86,7 @@ return document.getElementById(id);
 </head>
 <body>
 <form>
-用户名:<input type="text" name="username" id="username"><input type="button" onclick="checkName();" value="验证用户名"><br/>
+用户名:<input type="text" name="username" onkeyup="checkName();"  id="username"><input type="button" onclick="checkName();" value="验证用户名"><br/>
 
 </form>
 </body>
