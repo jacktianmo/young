@@ -1,0 +1,71 @@
+<html>
+<head>
+<script>
+//创建ajax
+function getXmlHttpObject()
+{
+
+var xmlHttpRequest;
+//不同的浏览器获取对象xmlhttprequest对象方法不一样
+if(window.ActiveXObject){
+xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+
+window.alert("ie");
+}
+else{
+
+xmlHttpRequest=new xmlHttpRequest();
+window.alert("firefox");
+
+}
+function checkName(){
+
+var myXmlHttpRequest=getXmlHttpObject();
+if(myXmlHttpRequest){
+
+window.alter("成功");
+
+//通过myXmlRequest对象发送请求到服务器的某个页面
+//第一个参数表示请求的方式，“get”/"post"
+//第二个参数指定url，对那个页面发送ajax请求（本质任然http请求）
+//第三个参数true表示使用异步机制;false表示同步机制
+
+var url="/ajax/register.php?username="+$("username").value;
+//打开请求
+myXmlHttpRequest.open("get",url,true);
+//指定回调函数,chuli是一个函数名
+myXmlHttpRequest.onreadystatechage=chuli；
+
+
+
+
+}else{
+window.alter("失败");
+
+}
+
+}
+//
+function $(id){
+
+return document.getElementById(id);
+}
+
+
+
+}
+
+
+
+</script>
+<title></title>
+</head>
+<body>
+<form>
+用户名:<input type="text" name="username" id="username"><input type="button" onclick="checkName();" value="验证用户名"><br/>
+
+</form>
+</body>
+
+
+</html>
